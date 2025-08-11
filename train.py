@@ -81,7 +81,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='DQN agent for CartPole')
     parser.add_argument('--episodes', type=int, default=300, help='学習するエピソード数')
     parser.add_argument('--batch_size', type=int, default=64, help='学習時のバッチサイズ')
-    parser.add_argument('--lr', type=float, default=1e-4, help='学習率 (learning rate)')
+    parser.add_argument('--lr', type=float, default=1e-3, help='学習率 (learning rate)')
     args = parser.parse_args()
     
     main(episodes=args.episodes, batch_size=args.batch_size, learning_rate=args.lr)
