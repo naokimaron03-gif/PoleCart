@@ -1,4 +1,4 @@
 torch
-gymnasium[box2d]
+gymnasium[box2d,other]
 numpy
 matplotlib
