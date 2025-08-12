@@ -101,10 +101,6 @@ class DQNAgent:
         loss.backward()
         self.optimizer.step()
 
-        # Epsilonを減衰させる
-        if self.epsilon > self.epsilon_min:
-            self.epsilon *= self.epsilon_decay
-
     def update_target_network(self):
         """
         ターゲットネットワークの重みをポリシーネットワークの重みで上書きする。

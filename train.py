@@ -13,7 +13,7 @@ def main(episodes, batch_size, learning_rate):
     """
     # --- 環境の初期化 ---
     # render_modeを'rgb_array'に設定。これは描画データをピクセル配列として受け取るための設定。
-    env = gym.make('CartPole-v1', render_mode='rgb_array')
+    env = gym.make('CartPole-v1', render_mode='rgb_array', max_episode_steps=10000)
 
     # --- 動画保存ラッパーの設定 ---
     # envをRecordVideoでラップする。
@@ -62,6 +62,9 @@ def main(episodes, batch_size, learning_rate):
             
             if len(agent.memory) > batch_size:
                 agent.replay(batch_size)
+
+        if agent.epsilon > agent.epsilon_min:
+            agent.epsilon *= agent.epsilon_decay
 
         all_rewards.append(total_reward)
         print(f"エピソード: {e+1}/{episodes}, 合計報酬: {total_reward:.2f}, イプシロン: {agent.epsilon:.3f}")
