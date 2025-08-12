@@ -27,7 +27,7 @@ class DQNAgent:
     """
     DQNアルゴリズムを実装したエージェント。
     """
-    def __init__(self, state_dim, action_dim, learning_rate=1e-3, gamma=0.99, epsilon=1.0, epsilon_decay=0.995, epsilon_min=0.01):
+    def __init__(self, state_dim, action_dim, learning_rate=1e-3, gamma=0.99, epsilon=1.0, epsilon_decay=0.999, epsilon_min=0.01):
         self.state_dim = state_dim
         self.action_dim = action_dim
         self.memory = deque(maxlen=10000) # 経験を保存するリプレイバッファ
