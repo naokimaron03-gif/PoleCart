@@ -34,7 +34,7 @@ def main(episodes, batch_size, learning_rate):
     )
 
     # --- 保存先パスの定義 ---
-    model_path = 'models/dqn_cartpole.pth'
+    model_path = 'models/dqn_cartpole.onnx'
     plot_path = 'results/reward_plot.png'
 
     # --- 変数の初期化 ---
@@ -59,7 +59,7 @@ def main(episodes, batch_size, learning_rate):
             cart_velocity = next_state[1]
             reward -= 0.1 * abs(cart_position)  # 位置が中心から離れるほどマイナス
             reward -= 0.05 * abs(cart_velocity) # 速度が大きいほどマイナス
-            
+
             done = terminated or truncated
             
             total_reward += reward
@@ -77,7 +77,7 @@ def main(episodes, batch_size, learning_rate):
 
         if (e + 1) % update_target_every == 0:
             agent.update_target_network()
-            agent.save_model(model_path)
+            agent.save_model(model_path, onnx=True)
 
 
     env.close()

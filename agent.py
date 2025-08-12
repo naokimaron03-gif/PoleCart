@@ -107,15 +107,19 @@ class DQNAgent:
         """
         self.target_net.load_state_dict(self.policy_net.state_dict())
 
-    def save_model(self, filepath):
-        """
-        学習済みモデル（ポリシーネットワークの重み）を保存する。
-        """
-        # 保存先ディレクトリがなければ作成
-        if os.path.dirname(filepath):
-            os.makedirs(os.path.dirname(filepath), exist_ok=True)
-        torch.save(self.policy_net.state_dict(), filepath)
-        print(f"Model saved to {filepath}")
+    def save_model(self, filepath, onnx=False):
+        if onnx:
+            dummy_input = torch.randn(1, self.state_dim)
+            torch.onnx.export(
+                self.q_network,           # モデル
+                dummy_input,              # ダミー入力
+                filepath,                 # 保存先
+                input_names=['state'],
+                output_names=['q_values'],
+                opset_version=11
+            )
+        else:
+            torch.save(self.q_network.state_dict(), filepath)
 
     def load_model(self, filepath):
         """
