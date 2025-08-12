@@ -54,6 +54,12 @@ def main(episodes, batch_size, learning_rate):
             action = agent.act(state)
             
             next_state, reward, terminated, truncated, _ = env.step(action)
+            # カートの位置と速度にペナルティを追加
+            cart_position = next_state[0]
+            cart_velocity = next_state[1]
+            reward -= 0.1 * abs(cart_position)  # 位置が中心から離れるほどマイナス
+            reward -= 0.05 * abs(cart_velocity) # 速度が大きいほどマイナス
+            
             done = terminated or truncated
             
             total_reward += reward
